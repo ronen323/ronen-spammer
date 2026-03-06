@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ronen Spammer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        .container {
+            background-color: #1e1e1e;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            border: 1px solid #ff0000;
+            width: 100%;
+            max-width: 400px;
+        }
+        h1 {
+            color: #ff0000;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        p {
+            color: #a0a0a0;
+            margin-top: 0;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #c0c0c0;
+            text-align: right;
+        }
+        input {
+            width: 100%;
+            padding: 0.8rem;
+            box-sizing: border-box;
+            background-color: #333;
+            border: 1px solid #555;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 1rem;
+        }
+        input::placeholder {
+            color: #777;
+        }
+        button {
+            width: 100%;
+            padding: 1rem;
+            background-color: #ff0000;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #cc0000;
+        }
+        .flash-messages {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1rem 0;
+        }
+        .flash-messages li {
+            padding: 0.8rem;
+            border-radius: 5px;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        .flash-success {
+            background-color: #004d00;
+            color: #99ff99;
+            border: 1px solid #00cc00;
+        }
+        .flash-error {
+            background-color: #660000;
+            color: #ff9999;
+            border: 1px solid #ff3333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>RONEN SPAMMER</h1>
+        <p>הכנס את פרטי המטרה</p>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                {% for category, message in messages %}
+                    <li class="flash-{{ category }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('handle_spam_request') }}" method="POST">
+            <div class="form-group">
+                <label for="phone">מספר טלפון</label>
+                <input type="tel" id="phone" name="phone" placeholder="0501234567" required>
+            </div>
+            <div class="form-group">
+                <label for="waves">מספר גלים</label>
+                <input type="number" id="waves" name="waves" value="1" min="1" max="10" required>
+            </div>
+            <button type="submit">התחל מתקפה</button>
+        </form>
+    </div>
+</body>
+</html>
